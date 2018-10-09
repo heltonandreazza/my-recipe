@@ -31,6 +31,10 @@ class DashboardCtrl {
     // TODO
     console.log(this.items)
   }
+
+  addLine() {
+    this.items.push({})
+  }
 }
 
 export default DashboardCtrl;
