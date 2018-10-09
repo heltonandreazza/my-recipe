@@ -5,7 +5,15 @@ class DashboardCtrl {
     this.dashboardService = dashboardService;
     //initialize controller variables
     this.input = {};
-    this.results = null;
+    this.columns = ['column1', 'column2', 'column3', 'column4',]
+    this.items = [{
+      column1: 1,
+      column2: 2,
+    },
+    {
+      column1: 2,
+      column2: 3,
+    }];
 
     this.activate();
   }
@@ -21,6 +29,7 @@ class DashboardCtrl {
    */
   getResults() {
     // TODO
+    console.log(this.items)
   }
 }
 
