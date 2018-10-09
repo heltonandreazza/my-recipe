@@ -1,0 +1,30 @@
+/**
+* My custom css
+*/
+@import 'multiselect/multiselect';
+@import 'sugestion/sugestion';
+@import 'utils/utils';
+
+.container-wrapper {
+  height: 85%;
+}
+
+.skin-blue {
+  .main-header {
+    background-color: #337ab7;
+    
+    .dropdown-menu {
+      .user-header {
+        p {
+          color: black !important;
+        }
+      }
+    }
+
+    li {
+      a {
+        color: white;
+      }
+    }
+  }
+}
