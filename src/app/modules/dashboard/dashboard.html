@@ -91,7 +91,7 @@
               <!--box-->
               <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Tabela de resultados</h3>
+                  <h3 class="box-title">Tabela de ingredientes</h3>
                 </div>
                 <div class="box-body">
                   <spinner></spinner>
@@ -100,18 +100,17 @@
                       <table class="table">
                         <thead>
                           <tr>
-                            <th ng-repeat="col in vm.columns">{{col}}</th>
+                            <th ng-repeat="col in vm.columns">{{col.desc}}</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr ng-repeat="item in vm.items">
                             <td ng-repeat="col in vm.columns">
-                              <input type="number" ng-model="item[col]"></input>
+                              <input type="{{col.type}}" ng-model="item[col.name]"></input>
                             </td>
                           </tr>
                         </tbody>
                       </table>
-                      {{vm.items}}
                     </div>
                   </div>
                   <div class="row">
@@ -132,98 +131,21 @@
               <!-- /.box -->
             </div>
           </div>
-          <!--WEATHER WIDGETS LIST-->
+          <!--BOX-->
           <div class="row">
-            <div ng-class="{'col-md-4': !item.week, 'col-md-3': item.week}" ng-repeat="item in vm.forecastItems">
-              <div class="box box-widget widget-user">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-black" style="background: url({{item.mainImage}}) center center;">
-                  <h3 class="widget-user-username">{{item.date}}</h3>
-                  <h5 class="widget-user-desc">{{item.weather.description}}</h5>
-                </div>
-                <div class="widget-user-image">
-                  <img class="img-circle" ng-src="{{ item.icon }}">
-                </div>
-                <div class="box-footer">
-                  <div class="row">
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">Mín.</h5>
-                        <span class="description-text">{{item.temp.min}}°C</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-4 border-right">
-                      <div class="description-block">
-                        <h5 class="description-header">Média</h5>
-                        <span>{{item.temp.media}}°C</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-4">
-                      <div class="description-block">
-                        <h5 class="description-header">Máx.</h5>
-                        <span class="description-text">{{item.temp.max}}°C</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                  </div>
-                  <!-- /.row -->
-                </div>
-              </div>
-            </div>
-            <!--CHARTJS WIDGET-->
-            <div class="col-md-5" ng-show="vm.sugestionCard">
-              <div class="box box-info">
-                <div class="box-body">
-                  <div class="chart">
-                    <canvas id="lineChart"></canvas>
-                  </div>
-                </div>
-                <!-- /.box-body -->
-              </div>
-            </div>
-          </div>
-          <!--SUGESTION WEATHER WIDGET-->
-          <div class="row" ng-if="vm.sugestionCard">
             <div class="col-md-12">
-              <!--Sugestion box-->
-              <div class="box box-danger">
+              <!--box-->
+              <div class="box box-info">
                 <div class="box-header with-border">
-                  <h3 class="box-title">{{vm.sugestionCard.title}}</h3>
+                  <h3 class="box-title">Resultados</h3>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
-                  <div>
-                    <div class="col-md-4">
-                      <img class="img-circle image-card" height="180" data-ng-src="{{ vm.sugestionCard.image }}" alt="User Image">
-                    </div>
-
-                    <div class="col-md-8">
-                      <div class="callout callout-success padding-30">
-                        <h4>Heey!</h4>
-
-                        <p>{{ vm.sugestionCard.info }}</p>
-                        <p>{{ vm.sugestionCard.sugestion }}</p>
-                        <p>Se quiser se divertir mais, acesse o blog vida de turista clicando no link abaixo!</p>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /.users-list -->
+                  <h3>{{vm.results}}</h3>
                 </div>
-                <!-- /.box-body -->
-                <div class="box-footer text-center">
-                  <a href="http://www.vidadeturista.com/" class="uppercase">Hey! Clique aqui e divirta-se.</a>
-                </div>
-                <!-- /.box-footer -->
               </div>
             </div>
           </div>
-      </div>
-      </section>
+        </section>
       <!-- /.content -->
     </div>
     <!-- /.container -->
