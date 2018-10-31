@@ -2,7 +2,7 @@
   <nav class="navbar navbar-static-top">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand"><b>My</b>Recipe</a>
+        <a class="navbar-brand"><b>Conf</b>Calc</a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse"
           aria-expanded="false">
           <i class="fa fa-bars"></i>
@@ -67,7 +67,7 @@
       <div class="container">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-          <h1>My Recipe
+          <h1>ConfCalc
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> This</a></li>
@@ -85,9 +85,17 @@
             <p>Quer saber como ganhar dinheiro com a sua receita? Está no lugar certo!!</p>
             <p>Informa os dados da sua receita na tabela abaixo, informe o lucro desejado e veja o resultado!</p>
           </div>
+          <div class="panel panel-primary">
+            <div class="panel-heading heading-click" ng-click="vm.showInstructions = !vm.showInstructions">Instruçōes
+              de Uso (Clique aqui para ver)</div>
+            <div class="panel-body" ng-class="{'hide': !vm.showInstructions}">
+              <h4>Titulo</h4>
+              <p>Content</p>
+            </div>
+          </div>
           <!--BOX-->
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12">
               <!--box-->
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -96,17 +104,70 @@
                 <div class="box-body">
                   <spinner></spinner>
                   <div class="row">
-                    <div class="col-md-12">
+                    <!-- <div id="tableToExport">
+                          <table border="1">
+                            <thead>
+                              <tr class="table-header">
+                                <th>Team</th>
+                                <th>Process Type</th>
+                                <th>Cedent</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>value 1</td>
+                                <td>value 2</td>
+                                <td>value 3</td>
+                              </tr>
+                              <tr>
+                                <td>value 4</td>
+                                <td>value 5</td>
+                                <td>value 6</td>
+                              </tr>
+                              <tr>
+                                <td>10.12.2015</td>
+                                <td>AXA Affin</td>
+                                <td>101024 - Quota Share QS</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div> -->
+                    <div class="col-sm-12">
                       <table class="table">
                         <thead>
                           <tr>
+                            <th>Un. Medida</th>
                             <th ng-repeat="col in vm.columns">{{col.desc}}</th>
+                            <th>Custo</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="item in vm.items">
+                          <tr ng-repeat="item in vm.items track by $index">
+                            <td>
+                              <div class="form-group">
+                                <select class="form-control" ng-options="unit as unit.label for unit in vm.units track by unit.id"
+                                  ng-model="item.selected">
+                                </select>
+                              </div>
+                            </td>
                             <td ng-repeat="col in vm.columns">
-                              <input type="{{col.type}}" ng-model="item[col.name]"></input>
+                              <div class="form-group">
+                                <input class="form-control" type="{{col.type}}" ng-model="item[col.name]"></input>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="form-group">
+                                <label style="padding: 7px 0">
+                                  {{
+                                  item.price && item.quantityTotal && item.quantityUsed
+                                  ? ((item.price / item.quantityTotal) * item.quantityUsed).toFixed(2)
+                                  : 0
+                                  }}
+                                </label>
+                              </div>
+                            </td>
+                            <td>
+                              <button ng-click="vm.removeLine($index)" class="btn btn-danger btn-sm">x</button>
                             </td>
                           </tr>
                         </tbody>
@@ -114,12 +175,29 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-12 form-group">
+                    <div class="col-sm-3 form-group">
                       <button class="btn btn-primary" ng-click="vm.addLine()">
                         Adicionar Ingrediente
                       </button>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-sm-3 form-group">
+                      <!-- <button class="btn btn-link" ng-click="vm.exportToExcel('#tableToExport')">
+                        Export to Excel
+                      </button> -->
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3 form-group">
+                      <label>Margem de lucro em %</label>
+                      <input class="form-control" type="number" ng-model="vm.profitPercentage" />
+                    </div>
+                    <div class="col-sm-3 form-group">
+                      <label>Rendimento</label>
+                      <input class="form-control" type="number" ng-model="vm.itemQuantity" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
                       <button class="btn btn-social btn-dropbox" ng-click="vm.getResults()">
                         <i class="fa fa-star"></i> Calcular
                       </button>
@@ -133,24 +211,74 @@
           </div>
           <!--BOX-->
           <div class="row">
-            <div class="col-md-12">
-              <!--box-->
-              <div class="box box-info">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Resultados</h3>
+            <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-4">
+                  <!--box-->
+                  <div class="box box-info">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Custo Total</h3>
+                    </div>
+                    <div class="box-body">
+                      <h3>{{vm.totalPriceCost.toFixed(2)}}</h3>
+                    </div>
+                  </div>
                 </div>
-                <div class="box-body">
-                  <h3>{{vm.results}}</h3>
+                <div class="col-sm-4">
+                  <!--box-->
+                  <div class="box box-info">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Custo por Rendimento</h3>
+                    </div>
+                    <div class="box-body">
+                      <h3>{{vm.costByItem.toFixed(2)}}</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <!--box-->
+                  <div class="box box-info">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Lucro Total</h3>
+                    </div>
+                    <div class="box-body">
+                      <h3>{{vm.totalProfit.toFixed(2)}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <!--box-->
+                  <div class="box box-info">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Lucro por Rendimento</h3>
+                    </div>
+                    <div class="box-body">
+                      <h3>{{vm.profitByItem.toFixed(2)}}</h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <!--box-->
+                  <div class="box box-info">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Preço de Venda</h3>
+                    </div>
+                    <div class="box-body">
+                      <h3>{{vm.itemSellPrice.toFixed(2)}}</h3>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
-      <!-- /.content -->
+        <!-- /.content -->
+      </div>
+      <!-- /.container -->
     </div>
-    <!-- /.container -->
+    <!-- /.content-wrapper -->
   </div>
-  <!-- /.content-wrapper -->
-</div>
-<!-- ./wrapper -->
+  <!-- ./wrapper -->
 </div>

@@ -27,4 +27,22 @@
       }
     }
   }
+
+  .box {
+    .box-body {
+      h3 {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.heading-click {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.table {
+  margin-bottom: 0
 }
