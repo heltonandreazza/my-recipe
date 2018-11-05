@@ -19,7 +19,7 @@ class DashboardCtrl {
       type: 'number'
     }, {
       name: 'quantityUsed',
-      desc: 'Quantidade U sada',
+      desc: 'Quantidade Usada',
       type: 'number'
     }]
 
@@ -53,11 +53,6 @@ class DashboardCtrl {
     this.itemQuantity = 0
 
     this.activate()
-
-    /**
-     * TODO: selecionar se vai ser por kg ou porcao
-     * TODO: add coluna unidade de medida por ingrediente
-     */
   }
 
   /**
