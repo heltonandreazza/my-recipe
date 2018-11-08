@@ -1,0 +1,40 @@
+/**
+* My custom css
+*/
+
+.container-wrapper {
+  height: 85%;
+}
+
+.skin-blue .main-header {
+  background-color: #337ab7;
+}
+.skin-blue .main-header .dropdown-menu .user-header p {
+  color: black !important;
+}
+.skin-blue .main-header li a {
+  color: white;
+}
+.skin-blue .box .box-body h3 {
+  text-align: center;
+}
+
+.heading-click:hover {
+  cursor: pointer;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.height-auto {
+  height: auto;
+}
+
+.min-height-875 {
+  min-height: 875px;
+}
+
+.padding-30 {
+  padding: 30px;
+}

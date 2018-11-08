@@ -23,9 +23,6 @@ module.exports = {
         cacheDirectory: true
       }
     }, {
-      test: /\.scss$/,
-      loader: ExtractTextPlugin.extract("css-loader!sass-loader")
-    }, {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract("style-loader", "css-loader")
     }, {

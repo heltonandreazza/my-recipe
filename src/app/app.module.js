@@ -1,4 +1,4 @@
-import '../assets/sass/style.scss';
+import '../assets/css/style.css';
 import '../assets/plugins/AdminLTE/AdminLTE.css';
 import core from './core/core.module';
 import common from './common/common.module';
