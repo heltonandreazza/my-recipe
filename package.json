@@ -1,0 +1,22 @@
+{
+  "name": "my-recipe-heroku",
+  "version": "1.0.0",
+  "description": "",
+  "main": "web.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heltonandreazza/my-recipe.git"
+  },
+  "author": "helton andreazza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heltonandreazza/my-recipe/issues"
+  },
+  "homepage": "https://github.com/heltonandreazza/my-recipe#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
