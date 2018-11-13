@@ -12,15 +12,18 @@ class DashboardCtrl {
     }, {
       name: 'quantityTotal',
       desc: 'Quantidade Total',
-      type: 'number'
+      type: 'number',
+      min: 0,
     }, {
       name: 'price',
       desc: 'Preço',
-      type: 'number'
+      type: 'number',
+      min: 0,
     }, {
       name: 'quantityUsed',
       desc: 'Quantidade Usada',
-      type: 'number'
+      type: 'number',
+      min: 0,
     }]
 
     this.units = [{
@@ -36,7 +39,7 @@ class DashboardCtrl {
 
     this.defaultItem = {
       selected: {
-        id: 1,
+        id: 0,
         label: 'GR',
       }
     }
@@ -75,7 +78,7 @@ class DashboardCtrl {
   }
 
   addLine() {
-    this.items.push(Object.assign({}, this.defaultItem))
+    this.items.push(Object.assign({ id: this.items.length }, this.defaultItem))
   }
 
   removeLine(index) {

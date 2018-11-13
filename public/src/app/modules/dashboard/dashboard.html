@@ -85,16 +85,9 @@
             <p>Quer saber como ganhar dinheiro com a sua receita? Está no lugar certo!!</p>
             <p>Informa os dados da sua receita na tabela abaixo, informe o lucro desejado e veja o resultado!</p>
           </div>
-          <div class="panel panel-primary">
-            <div class="panel-heading heading-click" ng-click="vm.showInstructions = !vm.showInstructions">Instruçōes
-              de Uso (Clique aqui para ver)</div>
-            <div class="panel-body" ng-class="{'hide': !vm.showInstructions}">
-              <h4>Titulo</h4>
-              <p>Content</p>
-            </div>
-          </div>
           <!--BOX-->
           <div class="row">
+            <form name="myForm" novalidate>
             <div class="col-sm-12">
               <!--box-->
               <div class="box box-info">
@@ -157,47 +150,60 @@
                         </tbody>
                       </table>
                     </div>
-                    <div class="col-sm-12">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Un. Medida</th>
-                            <th ng-repeat="col in vm.columns">{{col.desc}}</th>
-                            <th>Custo</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr ng-repeat="item in vm.items track by $index">
-                            <td>
-                              <div class="form-group">
-                                <select class="form-control" ng-options="unit as unit.label for unit in vm.units track by unit.id"
-                                  ng-model="item.selected">
-                                </select>
-                              </div>
-                            </td>
-                            <td ng-repeat="col in vm.columns">
-                              <div class="form-group">
-                                <input class="form-control" type="{{col.type}}" ng-model="item[col.name]"></input>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="form-group">
-                                <label style="padding: 7px 0">
-                                  {{
-                                  item.price && item.quantityTotal && item.quantityUsed
-                                  ? ((item.price / item.quantityTotal) * item.quantityUsed).toFixed(2)
-                                  : 0
-                                  }}
-                                </label>
-                              </div>
-                            </td>
-                            <td>
-                              <button ng-click="vm.removeLine($index)" class="btn btn-danger btn-sm">x</button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                      <div class="col-sm-12">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Un. Medida</th>
+                              <th ng-repeat="col in vm.columns">{{col.desc}}</th>
+                              <th>Custo</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-repeat="item in vm.items track by $index">
+                              <td>
+                                <div class="form-group">
+                                  <select class="form-control" ng-options="unit as unit.label for unit in vm.units track by unit.id"
+                                    ng-model="item.selected">
+                                  </select>
+                                </div>
+                              </td>
+                              <td ng-repeat="col in vm.columns">
+                                <div class="form-group">
+                                  <input
+                                    class="form-control"
+                                    type="{{col.type}}"
+                                    ng-model="item[col.name]"
+                                    name="{{col.name + item.id}}"
+                                    ng-class="{ 'input-invalid' : myForm[col.name + item.id].$touched && myForm[col.name + item.id].$invalid }"
+                                    required
+                                    ng-min="{{col.min}}"
+                                  ></input>
+                                  <div>
+                                    <span class="text-invalid" ng-show="myForm[col.name + item.id].$touched && myForm[col.name + item.id].$error.required">Campo obrigatório!</span>
+                                    <span class="text-invalid" ng-show="myForm[col.name + item.id].$touched && myForm[col.name + item.id].$error.number">Valor inválido!</span>
+                                    <span class="text-invalid" ng-show="myForm[col.name + item.id].$touched && myForm[col.name + item.id].$error.min">Valor inválido!</span>
+                                  </div>          
+                                </div>
+                              </td>
+                              <td>
+                                <div class="form-group">
+                                  <label style="padding: 7px 0">
+                                    {{
+                                    item.price && item.quantityTotal && item.quantityUsed
+                                    ? ((item.price / item.quantityTotal) * item.quantityUsed).toFixed(2)
+                                    : 0
+                                    }}
+                                  </label>
+                                </div>
+                              </td>
+                              <td>
+                                <button ng-click="vm.removeLine($index)" class="btn btn-danger btn-sm">x</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-3 form-group">
@@ -209,11 +215,37 @@
                   <div class="row">
                     <div class="col-sm-3 form-group">
                       <label>Margem de lucro em %</label>
-                      <input class="form-control" type="number" ng-model="vm.profitPercentage" />
+                      <input
+                        class="form-control"
+                        type="number"
+                        ng-model="vm.profitPercentage" 
+                        name="profitPercentage"
+                        ng-class="{ 'input-invalid' : myForm.profitPercentage.$touched && myForm.profitPercentage.$invalid }"
+                        required
+                        min="0"
+                      ></input>
+                      <div>
+                        <span class="text-invalid" ng-show="myForm.profitPercentage.$touched && myForm.profitPercentage.$error.required">Campo obrigatório!</span>
+                        <span class="text-invalid" ng-show="myForm.profitPercentage.$touched && myForm.profitPercentage.$error.number">Valor inválido!</span>
+                        <span class="text-invalid" ng-show="myForm.profitPercentage.$touched && myForm.profitPercentage.$error.min">Valor inválido!</span>
+                      </div>          
                     </div>
                     <div class="col-sm-3 form-group">
                       <label>Rendimento</label>
-                      <input class="form-control" type="number" ng-model="vm.itemQuantity" />
+                      <input
+                        class="form-control"
+                        type="number"
+                        ng-model="vm.itemQuantity" 
+                        name="itemQuantity"
+                        ng-class="{ 'input-invalid' : myForm.itemQuantity.$touched && myForm.itemQuantity.$invalid }"
+                        required
+                        min="0"
+                      ></input>
+                      <div>
+                        <span class="text-invalid" ng-show="myForm.itemQuantity.$touched && myForm.itemQuantity.$error.required">Campo obrigatório!</span>
+                        <span class="text-invalid" ng-show="myForm.itemQuantity.$touched && myForm.itemQuantity.$error.number">Valor inválido!</span>
+                        <span class="text-invalid" ng-show="myForm.itemQuantity.$touched && myForm.itemQuantity.$error.min">Valor inválido!</span>
+                      </div>                                
                     </div>
                   </div>
                   <div class="row">
@@ -234,6 +266,7 @@
               <!-- /.box -->
             </div>
           </div>
+          </form>
           <!--BOX-->
           <div class="row">
             <div class="col-sm-12">

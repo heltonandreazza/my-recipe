@@ -38,3 +38,14 @@
 .padding-30 {
   padding: 30px;
 }
+
+.input-invalid {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.text-invalid {
+  color: #a94442;
+  font-size: 12px;
+}
